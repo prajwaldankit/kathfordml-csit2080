@@ -4,8 +4,6 @@ import struct
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
-import torch.nn as nn
-
 
 
 def load_images(filename):
@@ -42,8 +40,6 @@ def load_labels(filename):
             f.read(8)
         )
 
-        print("Magic number:", magic)
-        print("Number of labels:", num_labels)
 
         labels = np.frombuffer(
             f.read(),
@@ -72,10 +68,14 @@ test_labels = load_labels(
     os.path.join(MNIST_DIR, "t10k-labels-idx1-ubyte.gz")
 )
 
+X_train = torch.tensor(train_images, dtype=torch.float32)
+y_train = torch.tensor(train_labels, dtype=torch.float32)
 
-print("\nTrain images:", train_images.shape)
-print("Train labels:", train_labels.shape)
+X_test = torch.tensor(test_images, dtype=torch.float32)
+y_test = torch.tensor(test_labels, dtype=torch.float32)
 
-print("Test images:", test_images.shape)
-print("Test labels:", test_labels.shape)
 
+# plt.imshow(train_images[34], cmap="gray")
+# plt.title(f"{train_labels[34]}")
+# plt.axis(False)
+# plt.show()
